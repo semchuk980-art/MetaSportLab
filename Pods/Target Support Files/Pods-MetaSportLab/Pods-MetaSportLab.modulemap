@@ -1,0 +1,6 @@
+framework module Pods_MetaSportLab {
+  umbrella header "Pods-MetaSportLab-umbrella.h"
+
+  export *
+  module * { export * }
+}
