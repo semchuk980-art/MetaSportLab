@@ -340,16 +340,7 @@ extension CreateSportView {
             fieldLayout: [],                 // You will populate from Field Designer later
             rules: movementRules.map { SportRule(title: $0.text) }
                  + scoringRules.map { SportRule(title: $0.text) },
-            roles: [],
-            // The theme color is not stored yet — add later if needed
-            // but we can store hex if you want
-            // themeColorHex: themeColor.toHex()
-            // add that to SportModel when ready
-            // plus:
-            // fieldType: fieldType
-            // if you want field type saved
-            // (we can add this attribute next)
-            //fieldType: fieldType
+            roles: []
         )
 
         sportStore.sports.append(newSport)

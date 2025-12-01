@@ -33,7 +33,8 @@ struct OnboardingView: View {
                     .padding(.horizontal, 36)
                 Spacer()
                 HStack(spacing: 10) {
-                    ForEach(0..<pages.count) { i in
+                    ForEach(0..<pages.count, id: \.self) { i in
+                    
                         Capsule()
                             .frame(width: i == page ? 36 : 8, height: 8)
                             .foregroundColor(i == page ? MSColor.accent : Color.white.opacity(0.12))
