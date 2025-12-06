@@ -16,84 +16,27 @@ struct HomeHubView: View {
                     .font(.g("Inter-Regular", size: 14))
                     .foregroundColor(.white.opacity(0.8))
                 
-                // MARK: - Quick Start & Recent Designs
-                HStack(spacing: 16) {
-                    GlassCard {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Quick Start")
-                                .font(.g("Inter-SemiBold", size: 16))
-                                .foregroundColor(.white)
-                            Text("Create a new sport from blank or template.")
-                                .font(.g("Inter-Regular", size: 12))
-                                .foregroundColor(.white.opacity(0.7))
-                            
-                            Spacer()
-                            
-                            HStack(spacing: 12) {
-                                Button {
-                                    // Action: open CreateSportView blank
-                                } label: {
-                                    Label("New Sport", systemImage: "plus.circle.fill")
-                                        .font(.g("Inter-SemiBold", size: 14))
-                                        .padding(.vertical, 6)
-                                        .padding(.horizontal, 12)
-                                        .background(MSColor.nodeBlue.opacity(0.9))
-                                        .foregroundColor(.black)
-                                        .cornerRadius(10)
-                                }
-                                
-                                Button {
-                                    // Action: open template picker
-                                } label: {
-                                    Label("Template", systemImage: "doc.on.doc.fill")
-                                        .font(.g("Inter-SemiBold", size: 14))
-                                        .padding(.vertical, 6)
-                                        .padding(.horizontal, 12)
-                                        .background(MSColor.nodePink.opacity(0.9))
-                                        .foregroundColor(.black)
-                                        .cornerRadius(10)
-                                }
-                            }
-                        }
-                        .padding()
-                        .frame(width: 360, height: 140)
-                    }
+                
+                // MARK: - Quick Start + Recent Designs (Responsive)
+                GeometryReader { geo in
+                    let isCompact = geo.size.width < 700
                     
-                    GlassCard {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("Recent Designs")
-                                .font(.g("Inter-SemiBold", size: 16))
-                                .foregroundColor(.white)
-                            
-                            if sportStore.sports.isEmpty {
-                                Text("No recent designs yet.")
-                                    .font(.g("Inter-Regular", size: 12))
-                                    .foregroundColor(.white.opacity(0.7))
-                                    .padding(.top, 8)
-                            } else {
-                                ForEach(sportStore.sports.suffix(3).reversed()) { sport in
-                                    HStack {
-                                        VStack(alignment: .leading, spacing: 2) {
-                                            Text(sport.name)
-                                                .font(.g("Inter-Medium", size: 14))
-                                                .foregroundColor(.white)
-                                            Text(sport.summary)
-                                                .font(.g("Inter-Regular", size: 11))
-                                                .foregroundColor(.white.opacity(0.6))
-                                        }
-                                        Spacer()
-                                        Image(systemName: "chevron.right")
-                                            .foregroundColor(.white.opacity(0.5))
-                                    }
-                                    .padding(6)
-                                    .background(RoundedRectangle(cornerRadius: 12).fill(Color.white.opacity(0.05)))
-                                }
+                    Group {
+                        if isCompact {
+                            VStack(spacing: 16) {
+                                quickStartCard
+                                recentDesignsCard
+                            }
+                        } else {
+                            HStack(spacing: 16) {
+                                quickStartCard
+                                recentDesignsCard
                             }
                         }
-                        .padding()
-                        .frame(width: 260, height: 140)
                     }
                 }
+                .frame(height: 300)  // Enough space for both layouts
+                
                 
                 // MARK: - Modules Quick Access
                 Text("Modules")
@@ -118,7 +61,93 @@ struct HomeHubView: View {
         }
     }
     
-    // MARK: - Module Card
+    
+    // MARK: - QUICK START
+    private var quickStartCard: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Quick Start")
+                    .font(.g("Inter-SemiBold", size: 16))
+                    .foregroundColor(.white)
+                
+                Text("Create a new sport from blank or template.")
+                    .font(.g("Inter-Regular", size: 12))
+                    .foregroundColor(.white.opacity(0.7))
+                
+                Spacer()
+                
+                HStack(spacing: 12) {
+                    Button {
+                        // Action
+                    } label: {
+                        Label("New Sport", systemImage: "plus.circle.fill")
+                            .font(.g("Inter-SemiBold", size: 14))
+                            .padding(.vertical, 6)
+                            .padding(.horizontal, 12)
+                            .background(MSColor.nodeBlue.opacity(0.9))
+                            .foregroundColor(.black)
+                            .cornerRadius(10)
+                    }
+                    
+                    Button {
+                        // Action
+                    } label: {
+                        Label("Template", systemImage: "doc.on.doc.fill")
+                            .font(.g("Inter-SemiBold", size: 14))
+                            .padding(.vertical, 6)
+                            .padding(.horizontal, 12)
+                            .background(MSColor.nodePink.opacity(0.9))
+                            .foregroundColor(.black)
+                            .cornerRadius(10)
+                    }
+                }
+            }
+            .padding()
+        }
+        .frame(maxWidth: .infinity, minHeight: 140)
+    }
+    
+    
+    // MARK: - RECENT DESIGNS
+    private var recentDesignsCard: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Recent Designs")
+                    .font(.g("Inter-SemiBold", size: 16))
+                    .foregroundColor(.white)
+                
+                if sportStore.sports.isEmpty {
+                    Text("No recent designs yet.")
+                        .font(.g("Inter-Regular", size: 12))
+                        .foregroundColor(.white.opacity(0.7))
+                        .padding(.top, 8)
+                } else {
+                    ForEach(sportStore.sports.suffix(3).reversed()) { sport in
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(sport.name)
+                                    .font(.g("Inter-Medium", size: 14))
+                                    .foregroundColor(.white)
+                                Text(sport.summary)
+                                    .font(.g("Inter-Regular", size: 11))
+                                    .foregroundColor(.white.opacity(0.6))
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.white.opacity(0.5))
+                        }
+                        .padding(6)
+                        .background(RoundedRectangle(cornerRadius: 12).fill(Color.white.opacity(0.05)))
+                    }
+                }
+            }
+            .padding()
+        }
+        .frame(maxWidth: .infinity, minHeight: 140)
+    }
+    
+    
+    // MARK: - MODULE CARD
     @ViewBuilder
     func moduleCard(title: String, systemIcon: String) -> some View {
         GlassCard {

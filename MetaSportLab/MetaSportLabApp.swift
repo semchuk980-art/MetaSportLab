@@ -286,8 +286,8 @@ struct AboutView: View {
                 .foregroundColor(.white.opacity(0.8))
             Spacer()
             HStack(spacing: 18) {
-                Link(destination: URL(string: "https://example.com")!) { Label("Docs", systemImage: "book") }
-                Link(destination: URL(string: "https://example.com")!) { Label("License", systemImage: "doc.text") }
+                Link(destination: URL(string: "https://www.termsfeed.com/live/c6e29425-89d7-4661-85c2-f560f5b232f8")!) { Label("Docs", systemImage: "book") }
+                Link(destination: URL(string: "https://www.termsfeed.com/live/c6e29425-89d7-4661-85c2-f560f5b232f8")!) { Label("License", systemImage: "doc.text") }
             }
             .foregroundColor(.white)
             Spacer()
