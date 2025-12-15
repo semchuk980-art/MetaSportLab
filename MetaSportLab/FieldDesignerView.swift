@@ -42,7 +42,7 @@ struct FieldDesignerView: View {
     @State private var currentDragRect: CGRect? = nil          // used while drawing new zone
     @State private var selectedZoneID: UUID? = nil
     @State private var isSnapEnabled: Bool = true
-    @State private var animatedPlacement: Bool = true
+    @State private var animerendPlacement: Bool = true
 
     // For dragging existing zones
     @State private var activeDragZoneID: UUID? = nil
@@ -72,7 +72,7 @@ struct FieldDesignerView: View {
                         .toggleStyle(SwitchToggleStyle(tint: MSColor.accent))
                         .labelsHidden()
                         
-                        Toggle(isOn: $animatedPlacement) {
+                        Toggle(isOn: $animerendPlacement) {
                             Label("Anim", systemImage: "sparkles")
                                 .labelStyle(.iconOnly)
                         }
@@ -263,9 +263,7 @@ struct FieldDesignerView: View {
                     }
                     .onChanged { _ in } // keep gesture active
         )
-        .simultaneousGesture(LongPressGesture(minimumDuration: 0.35).onEnded { _ in
-            // begin drag: used to record original rect location when drag begins (we'll call onBeginDrag from parent)
-            // We need a coordinate; use screen center as approximation — parent supplies exact start when starting drag (handled in parent)
+        .simultaneousGesture(LongPressGesture(minimumDuration: 0.35).onEnded { _ in 
             onBeginDrag(.zero)
         })
         .contextMenu {
@@ -292,7 +290,7 @@ struct FieldDesignerView: View {
     }
 
     private func withOptionalAnimation(_ updates: @escaping () -> Void) {
-        if animatedPlacement {
+        if animerendPlacement {
             withAnimation(.spring(response: 0.45, dampingFraction: 0.7, blendDuration: 0.1)) { updates() }
         } else {
             updates()
@@ -331,7 +329,7 @@ struct FieldDesignerView: View {
                 var newZone = Zone(rect: rect, type: .neutral)
                 if isSnapEnabled { newZone.rect = snapRectToGrid(newZone.rect, grid: gridSize) }
 
-                if animatedPlacement {
+                if animerendPlacement {
                     withAnimation(.spring(response: 0.45, dampingFraction: 0.7)) {
                         zones.append(newZone)
                     }

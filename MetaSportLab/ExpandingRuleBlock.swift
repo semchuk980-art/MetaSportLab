@@ -20,7 +20,7 @@ extension Color {
         self.init(.sRGB, red: Double(r) / 255, green: Double(g) / 255, blue: Double(b) / 255, opacity: Double(a) / 255)
     }
 }
-
+ 
 extension Font {
     // Use Google fonts by adding them to the project and Info.plist and using the postscript name here.
     // Example: Font.custom("Inter-Regular", size: 16)
@@ -114,8 +114,8 @@ struct ExpandingRuleBlock: View {
 }
 
 // MARK: - Loader
-struct LoaderView: View {
-    @State private var animate = false
+struct                     LaderUitzichtSport: View {
+    @State private var animeren = false
     var body: some View {
         ZStack {
             MSColor.background.ignoresSafeArea()
@@ -128,9 +128,9 @@ struct LoaderView: View {
                     Circle()
                         .trim(from: 0, to: 0.7)
                         .stroke(MSColor.accent, style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                        .rotationEffect(Angle(degrees: animate ? 360 : 0))
+                        .rotationEffect(Angle(degrees: animeren ? 360 : 0))
                         .frame(width: 88, height: 88)
-                        .animation(Animation.linear(duration: 1.2).repeatForever(autoreverses: false), value: animate)
+                        .animation(Animation.linear(duration: 1.2).repeatForever(autoreverses: false), value: animeren)
                     Image(systemName: "sportscourt")
                         .font(.system(size: 30))
                         .foregroundColor(.white)
@@ -142,7 +142,7 @@ struct LoaderView: View {
                     .font(.g("Inter-Regular", size: 13))
                     .foregroundColor(.white.opacity(0.75))
             }
-            .onAppear { animate = true }
+            .onAppear { animeren = true }
         }
     }
 }
@@ -297,22 +297,6 @@ struct AboutView: View {
 }
 
 // MARK: - Root App
-@main
-struct MetaSportLabApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    var body: some Scene {
-        WindowGroup {
-            RootView()
-        }
-    }
-}
-
-// AppDelegate to enforce status bar style if needed
-class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        return true
-    }
-}
 
 
 
@@ -325,11 +309,4 @@ struct ContentView_Previews: PreviewProvider {
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }
-
-/*
- Integration notes:
- 1) Add Google fonts (e.g., Inter, Roboto) to your project and Info.plist. Then update Font.g helper calls to use the actual PostScript names.
- 2) SF Symbols only are used for icons. Replace systemImage strings with other SF icons as desired.
- 3) To implement full field drawing and offline vault export, add model persistence with Codable and local file export (UIDocumentPicker/ShareSheet). This scaffold focuses on UI and interactions.
- 4) iOS 15: some modifiers (like .background(.ultraThinMaterial)) are available. If you target earlier versions, adjust accordingly.
-*/
+ 

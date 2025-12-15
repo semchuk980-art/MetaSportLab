@@ -8,7 +8,7 @@ struct RootView: View {
         ZStack {
             MSColor.background.ignoresSafeArea()
             if showLoader {
-                LoaderView()
+                                    LaderUitzichtSport()
                     .transition(.opacity)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { withAnimation(.easeOut) { showLoader = false } }

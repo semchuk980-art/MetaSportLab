@@ -9,7 +9,7 @@ struct MainView: View {
         ZStack {
             // MAIN CONTENT
             VStack {
-                if selection == nil { HomeHubView()
+                if selection == nil { HomeHubView(selection: $selection)
                         .environmentObject(sportStore)
                 }
                 else if selection == "Create a Sport" { CreateSportView()
@@ -26,6 +26,7 @@ struct MainView: View {
 
                 Spacer()
             }
+            .padding(.bottom, 25)
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
